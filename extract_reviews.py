@@ -1,11 +1,18 @@
 
+"""Extract reviews from a Best Buy product page saved as HTML.
+
+Usage: python extract_reviews.py path/to/saved_page.html
+"""
 import json
-import re
+import sys
 from pathlib import Path
 
 import pandas as pd
 
-html_path = Path(r"D:\HanuAI\bestbuy_reviews.html")
+if len(sys.argv) < 2:
+    raise SystemExit("Usage: python extract_reviews.py path/to/saved_page.html")
+
+html_path = Path(sys.argv[1])
 output_path = Path("data") / "bestbuy_reviews_raw.csv"
 
 html = html_path.read_text(encoding="utf-8", errors="ignore")

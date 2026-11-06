@@ -21,8 +21,10 @@ Python data-analysis project with two parts:
 | File | Purpose |
 |---|---|
 | `collect_bestbuy_reviews.py` | Opens the product page in Chromium and saves review cards to CSV |
-| `extract_reviews.py`, `clean_reviews.py` | Parse and clean raw reviews |
-| `analyze_reviews.py` | Lexicon-based sentiment and keyword aspect tags |
+| `extract_reviews.py` | Alternative: parse reviews from a product page saved as HTML |
+| `clean_reviews.py` | Remove duplicates, empty text and invalid ratings |
+| `analyze_reviews.py` | VADER (lexicon-based) sentiment, plus a flag when sentiment disagrees with the star rating |
+| `make_sample_data.py` | Creates 3 made-up reviews to test the scripts without scraping |
 
 ```bash
 python -m venv .venv
@@ -30,8 +32,16 @@ python -m venv .venv
 pip install -r requirements.txt
 playwright install chromium
 
-python collect_bestbuy_reviews.py
-python analyze_reviews.py
+python collect_bestbuy_reviews.py     # writes data/bestbuy_reviews_raw.csv
+python clean_reviews.py
+python analyze_reviews.py             # writes data/bestbuy_reviews_with_sentiment.csv
+```
+
+Quick test without scraping:
+
+```bash
+python make_sample_data.py
+python analyze_reviews.py data/sample_reviews.csv
 ```
 
 Outputs are written to `data/`. Scraper selectors depend on the live website and may need updating.
@@ -56,7 +66,8 @@ Steps in the notebook: data-quality checks → text cleaning → descriptive EDA
 ## Known issues / next steps
 
 - Replace the lexicon sentiment baseline with a trained classifier and report accuracy
-- Move scripts into a `src/` folder and outputs into `data/`
+- Move scripts into a `src/` folder
+- Add aspect tagging (battery, comfort, sound…) to the review pipeline
 
 ## Author
 

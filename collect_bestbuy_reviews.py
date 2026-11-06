@@ -1,5 +1,5 @@
 """
-HanuAI Task 1 — Best Buy Canada review collector
+Best Buy Canada review collector (Playwright).
 Run locally on your own computer with a normal browser session.
 This script does not bypass CAPTCHA, login walls, rate limits, or other access controls.
 Inspect the rendered page and adjust selectors if Best Buy changes its markup.
@@ -58,13 +58,13 @@ def parse_date(text):
 def review_container_candidates(page):
     # Broad, inspectable selectors because retail sites frequently update CSS classes.
     selectors = [
-    '[data-testid*="review"]',
-    '[class*="review-item"]',
-    '[class*="reviewItem"]',
-    '[class*="review-content"]',
-    '[class*="review"]',
-    'article'
-]
+        '[data-testid*="review"]',
+        '[class*="review-item"]',
+        '[class*="reviewItem"]',
+        '[class*="review-content"]',
+        '[class*="review"]',
+        'article'
+    ]
     found = []
     seen = set()
     for sel in selectors:
